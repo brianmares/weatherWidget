@@ -1,10 +1,61 @@
 <html>
     <head>
-      <script async="true" data-cfasync="false" type="text/javascript" src="https://windy.app/widgets-code/forecast/windy_weather_async.js?v16"></script>
+      <script type="text/javascript" >
+        const setParameters = function() {
+          const params = new Proxy(new URLSearchParams(window.location.search), {
+            get: (searchParams, prop) => searchParams.get(prop),
+          });
+          const lat = params.lat;
+          const lng = params.lng;
+          const title = params.title;
+          const addressl1 = params.addressl1;
+          const addressl2 = params.addressl2;
+          document.getElementById("title").innerHTML = title;
+          document.getElementById("address1").innerHTML = addressl1;
+          document.getElementById("address2").innerHTML = addressl2;
+          if(lat && lng){
+            console.log("setting attributes ", lat, lng);
+            const div = document.getElementsByClassName("weather")[0];
+            console.log("div ", div);
+            div.setAttribute("data-lat", lat);
+            div.setAttribute("data-lng", lng);
+          }
+          /* used sources https://windy.app/blog/weather-widget-iphone-website.html */
+          loadScript("https://windy.app/widgets-code/forecast/windy_weather_async.js?v16");
+      
+        }
+
+        function loadScript(src) {
+            return new Promise(function(resolve, reject) {
+                const s = document.createElement('script');
+                let r = false;
+                s.type = 'text/javascript';
+                s.src = src;
+                s.async = true;
+                s.onerror = function(err) {
+                reject(err, s);
+                };
+                s.onload = s.onreadystatechange = function() {
+                // console.log(this.readyState); // uncomment this line to see which ready states are called.
+                if (!r && (!this.readyState || this.readyState == 'complete')) {
+                    r = true;
+                    resolve();
+                }
+                };
+                const t = document.getElementsByTagName('script')[0];
+                t.parentElement.insertBefore(s, t);
+            });
+            }
+          
+          
+      </script>
     </head>
-    <body>
+    <body onload="setParameters()">
+        <div id="title"></div>
+        <div id="address1"></div>
+        <div id="address2"></div>
           <div
-          width="500px"
+            class="weather"
             data-windywidget="windy-weather"
             data-thememode="light"
             data-appid="c60add30b4a6d23d6114299317d3447c"
