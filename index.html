@@ -14,9 +14,7 @@
           document.getElementById("address1").innerHTML = addressl1;
           document.getElementById("address2").innerHTML = addressl2;
           if(lat && lng){
-            console.log("setting attributes ", lat, lng);
             const div = document.getElementsByClassName("weather")[0];
-            console.log("div ", div);
             div.setAttribute("data-lat", lat);
             div.setAttribute("data-lng", lng);
           }
@@ -46,8 +44,6 @@
                 t.parentElement.insertBefore(s, t);
             });
             }
-          
-          
       </script>
     </head>
     <body onload="setParameters()">
