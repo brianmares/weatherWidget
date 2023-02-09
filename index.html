@@ -10,13 +10,18 @@
           const title = params.title;
           const addressl1 = params.addressl1;
           const addressl2 = params.addressl2;
+          const theme = params.theme;
           document.getElementById("title").innerHTML = title;
           document.getElementById("address1").innerHTML = addressl1;
           document.getElementById("address2").innerHTML = addressl2;
+          
+          const div = document.getElementsByClassName("weather")[0];
           if(lat && lng){
-            const div = document.getElementsByClassName("weather")[0];
             div.setAttribute("data-lat", lat);
             div.setAttribute("data-lng", lng);
+          }
+          if(theme){
+              div.setAttribute("data-thememode", theme);
           }
           /* used sources https://windy.app/blog/weather-widget-iphone-website.html */
           loadScript("https://windy.app/widgets-code/forecast/windy_weather_async.js?v16");
