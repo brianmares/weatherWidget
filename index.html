@@ -20,8 +20,12 @@
             div.setAttribute("data-lat", lat);
             div.setAttribute("data-lng", lng);
           }
-          if(theme){
-              div.setAttribute("data-thememode", "dark");
+          if(theme !== undefined){
+              if(theme){
+                  div.setAttribute("data-thememode", "dark");
+              }
+              div.setAttribute("data-thememode", "light");
+              
           }
           /* used sources https://windy.app/blog/weather-widget-iphone-website.html */
           loadScript("https://windy.app/widgets-code/forecast/windy_weather_async.js?v16");
